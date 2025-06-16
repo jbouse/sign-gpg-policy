@@ -1,0 +1,11 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "signpolicy"
+version = "1.0.0"
+dependencies = ['rich']
+
+[project.scripts]
+sign-gpg-policy = "signpolicy.main:main"
