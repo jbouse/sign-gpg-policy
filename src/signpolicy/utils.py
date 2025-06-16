@@ -58,7 +58,7 @@ def process_policy(date, dry_run=False, no_color=False):
     for line in lines:
         if line.startswith("pub") and "revoked:" not in line:
             keyid = line.split()[1].split("/")[-1]
-            keys.append(keyid)
+            keys.append(keyid[2:])
 
     summary = {
         "found_keys": keys,
