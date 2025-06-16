@@ -2,6 +2,7 @@ import os
 import tempfile
 from signpolicy.utils import hash_file, process_policy
 
+
 def test_hash_file():
     with tempfile.NamedTemporaryFile("w", delete=False) as f:
         f.write("test content\n")
@@ -12,6 +13,7 @@ def test_hash_file():
         assert hash_file(fname, "sha256") == "a1fff0ffefb9eace7230c24e50731f0a91c62f9cefdfe77121c2f607125dffae"
     finally:
         os.remove(fname)
+
 
 def test_process_policy_dry_run(monkeypatch, capsys):
     # Set up fake environment

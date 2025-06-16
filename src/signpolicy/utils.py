@@ -5,11 +5,13 @@ from rich.console import Console
 from rich.table import Table
 from rich import box
 
+
 def hash_file(filepath, algo):
     h = hashlib.new(algo)
     with open(filepath, 'rb') as f:
         h.update(f.read())
     return h.hexdigest()
+
 
 def get_secret_keys(gpg_bin="gpg"):
     """Returns a set of key IDs for which secret keys exist."""
@@ -32,6 +34,7 @@ def get_secret_keys(gpg_bin="gpg"):
     except subprocess.CalledProcessError as e:
         console.print(f"[red]Error listing secret keys:[/red] {e.stderr}")
         return set()
+
 
 def process_policy(date, dry_run=False, no_color=False):
     global console
