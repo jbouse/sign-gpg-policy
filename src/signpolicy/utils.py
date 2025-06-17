@@ -2,6 +2,7 @@ from __future__ import annotations
 import hashlib
 import os
 import subprocess
+import sys
 from dataclasses import dataclass
 from enum import Enum, auto
 from pathlib import Path
@@ -27,13 +28,15 @@ __all__ = [
 
 ALGOS: tuple[str, ...] = ("md5", "sha1", "sha256")
 
+py310 = sys.version_info.minor >= 10 or sys.version_info.major > 3
+
 
 # ---------------------------------------------------------------------------
 # Data structures
 # ---------------------------------------------------------------------------
 
 
-@dataclass(slots=True)
+@dataclass(**({"slots": True} if py310 else {}))
 class Context:
     """Execution context passed around instead of many individual args."""
 
