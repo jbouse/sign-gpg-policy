@@ -10,4 +10,7 @@ lint:
 	ruff check
 
 clean:
-	rm -rf __pycache__ .pytest_cache .tox
+	rm -rf __pycache__ .pytest_cache .tox .ruff_cache
+
+realclean:
+	rm -rf build dist
