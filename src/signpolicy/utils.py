@@ -149,7 +149,8 @@ def handle_key(ctx: Context, key: str, secret_keys: Set[str], dry: bool) -> KeyR
     """Sign or verify *key* for *ctx.policy*. Returns a :class:`KeyResult`."""
     c = ctx.console
     short = key[-8:]
-    sig_file = ctx.policy.with_suffix(f".{short}.sig")
+    policy_suffix = ctx.policy.suffix
+    sig_file = ctx.policy.with_suffix(f"{policy_suffix}.{short}.sig")
 
     # Case 1 – signature missing ⇒ potentially sign
     if not sig_file.exists():
@@ -162,7 +163,7 @@ def handle_key(ctx: Context, key: str, secret_keys: Set[str], dry: bool) -> KeyR
 
         # real signing
         subprocess.run([ctx.gpg_bin, "-qbu", f"{key}!", ctx.policy.name])
-        asc_file = ctx.policy.with_suffix(".asc")
+        asc_file = ctx.policy.with_suffix(f"{policy_suffix}.asc")
         if not asc_file.exists():
             c.print(f"[red]No .asc generated for {key}[/red]")
             return KeyResult.ERROR
@@ -210,7 +211,7 @@ def process_policy(date: str, *, dry_run: bool = False, no_color: bool = False) 
     """
     console = Console(force_terminal=not no_color, no_color=no_color)
 
-    user = os.getenv("USER") or "unknown"
+    user = os.getenv("USER") or "policy"
     gpg_bin = os.getenv("GPGBIN", "gpg")
     policy = Path(f"{user}.{date}")
 

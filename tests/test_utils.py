@@ -77,7 +77,7 @@ def test_handle_key_verified_when_sig_exists(tmp_path):
     ctx = _make_ctx(tmp_path, "policy.txt")
 
     # create dummy signature file so handle_key treats it as “already signed”
-    sig_path = ctx.policy.with_suffix(f".{key[-8:]}.sig")
+    sig_path = ctx.policy.with_suffix(f"{ctx.policy.suffix}.{key[-8:]}.sig")
     sig_path.touch()
 
     result = handle_key(ctx, key=key, secret_keys={"12345678"}, dry=True)
